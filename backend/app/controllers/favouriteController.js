@@ -78,7 +78,7 @@ exports.getAllFavourites = (req, res) => {
         model: Users,
         as: 'user',
         attributes: {
-          exclude: ['password', 'created_at', 'updated_at']
+          exclude: ['user_password', 'created_at', 'updated_at']
         },
         order: [['created_at', 'ASC']]
 
