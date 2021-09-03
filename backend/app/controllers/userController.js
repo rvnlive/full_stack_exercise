@@ -79,7 +79,7 @@ exports.logInUser = (req, res) => {
       delete result.user_password
       successMessage.data = result
       successMessage.data.token = token
-      return res.json({ userid: result.user_id, username: result.user_name, token: token })
+      return res.json({ userid: result.user_id, userName: result.user_name, token: token })
     })
     .catch(error => console.log('Operation was not successful ' + error))
 }
