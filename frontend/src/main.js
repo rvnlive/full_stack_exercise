@@ -5,6 +5,7 @@ import router from './router'
 import store from './store'
 
 /* Importing plugins */
+import './assets/style.scss'
 import { IconsPlugin } from 'bootstrap-vue'
 
 Vue.use(IconsPlugin)
