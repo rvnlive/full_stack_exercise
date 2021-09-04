@@ -9,7 +9,7 @@
     >
 
     <b-tooltip target="login-tooltip-target" triggers="hover">
-      <b-form @submit="onLogin" class="m-2">
+      <b-form @submit.prevent="onLogin" class="m-2">
         <b-form-group
           id="input-group-1"
           label="Username:"
@@ -36,7 +36,7 @@
           ></b-form-input>
         </b-form-group>
         <b-button
-          type="submit"
+          @click="onLogin"
           size="sm"
           variant="info"
           class="pl-4 pr-4 rounded-lg"
@@ -49,7 +49,7 @@
 <script>
 import axios from "axios";
 export default {
-  name: "SignUp",
+  name: "Login",
   data() {
     return {
       form: {
@@ -60,21 +60,17 @@ export default {
   },
   methods: {
     onLogin() {
-      this.$v.form.$touch();
       try {
         axios
-          .post("http://localhost:3000/api/auth/signup", this.form)
+          .post("http://localhost:3000/api/auth/login", this.form)
           .then((res) => {
             if (res.status === 200) {
-              return console.log("Successful Sign up!");
+              window.sessionStorage.setItem('token', JSON.stringify(res.data.token))
+              return console.log("Successful Login!");
             }
           })
           .catch((error) => {
-            if (error.response.status === 409) {
-              return console.log("Existing User!");
-            } else {
               return console.log("Something went wrong: " + error);
-            }
           });
       } catch (error) {
         console.log(error);
