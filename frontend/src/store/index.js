@@ -59,21 +59,21 @@ export default new Vuex.Store({
           commit('allMovie', movies)
         })
         .catch(error => console.log(error))
-    },
-    loadFavourites ({ commit }) {
-      const baseURL = 'http://localhost:3000/api'
-      const favouritesAPI = '/favourites/'
-      const requestOptions = {
-        method: 'GET',
-        headers: { Authorization: 'Bearer ' + window.sessionStorage.getItem('token') }
-      }
-      window.fetch(baseURL + favouritesAPI, requestOptions)
-        .then(result => result.json())
-        .then(favourites => {
-          commit('loadedFavourites', favourites)
-        })
-        .catch(error => console.log(error))
     }
+    // loadFavourites ({ commit }) {
+    //   const baseURL = 'http://localhost:3000/api'
+    //   const favouritesAPI = '/favourites/'
+    //   const requestOptions = {
+    //     method: 'GET',
+    //     headers: { Authorization: 'Bearer ' + window.sessionStorage.getItem('token') }
+    //   }
+    //   window.fetch(baseURL + favouritesAPI, requestOptions)
+    //     .then(result => result.json())
+    //     .then(favourites => {
+    //       commit('loadedFavourites', favourites)
+    //     })
+    //     .catch(error => console.log(error))
+    // }
   },
   getters: {
     getStatus: state => state.Status,
