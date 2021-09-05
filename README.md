@@ -4,7 +4,7 @@
   In this exercise I've used - only on the frontend - a [public API - which contains all the Lord of the Rings books and movies](https://the-one-api.dev/).
   The initial idea is, that a user can see all the books and movies (includes extra infos, such as budget, awards etc), and up on registration, they can add them to their favourites.
   The registration and the add to favourites uses my backend and my database through my frontend.
-  Simplest case: you visit the page (content being loaded from public API on hitting 'list...' button), then you hit (e.g) 'list books' button. Then - if you want to add any book to your favourites, you register (`sign up` with username and password) and then you are able to add each. If you change your mind - or made a wrong choice - just simply hit the `remove from favourites` button.
+  **Simplest case:** you visit the page (content being loaded from public API on hitting 'list...' button), then you hit (e.g) 'list books' button. Then - if you want to add any book to your favourites, you register (`sign up` with username and password) and then you are able to add each. If you change your mind - or made a wrong choice - just simply hit the `remove from favourites` button.
 
 
 > Because I haven't got sufficient knowledge in AWS, I'm unfortunately unable to deploy the full stack.
