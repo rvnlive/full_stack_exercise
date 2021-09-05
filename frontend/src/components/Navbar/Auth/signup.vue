@@ -1,5 +1,5 @@
 <template>
-  <div class="mr-5">
+  <div class="mr-2 mr-md-5">
     <b-button
       id="signup-tooltip-target"
       size="sm"

@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <b-navbar variant="light" class="m-0 p-0 shadow-lg">
+    <b-navbar sticky variant="light" class="m-0 p-0 shadow-lg">
       <Branding />
       <LogIn v-if="isLoggedIn === 'notIn'" />
       <SignUp v-if="isLoggedIn === 'notIn'" />
       <LogOut v-if="isLoggedIn === 'In'" />
     </b-navbar>
-  </div>
 </template>
 <script>
 import Branding from "./Branding/Branding.vue";

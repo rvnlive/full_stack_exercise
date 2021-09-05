@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pb-4">
     <BookCard />
   </div>
 </template>

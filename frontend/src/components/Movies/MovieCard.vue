@@ -3,11 +3,11 @@
     <p class="display-4 text-center">Movies</p>
     <div>
       <b-card
-        fluid
         v-for="movie in movieList"
         :key="movie._id"
         :title="movie.name"
-        class="ml-auto mr-auto mb-2 rounded-0 text-center"
+        class="shadow-lg ml-auto mr-auto mb-3 rounded-xl text-center"
+        style="max-width: 85vw"
       >
         It has (<em>individually or as a series</em>):
         <b-list-group class="mt-2 w-75 ml-auto mr-auto">

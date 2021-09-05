@@ -1,6 +1,10 @@
 <template>
   <div>
-    <b-jumbotron fluid bg-variant="light">
+    <b-jumbotron
+      bg-variant="light"
+      class="shadow-lg rounded-0 ml-auto mr-auto"
+      style="max-width: 85vw"
+    >
       <template #header>Welcome people!</template>
 
       <template #lead>

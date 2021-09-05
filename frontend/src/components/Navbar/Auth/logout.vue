@@ -1,5 +1,5 @@
 <template>
-  <div class="ml-auto mr-3">
+  <div class="ml-auto mr-2 mr-md-5">
     <b-button
       size="sm"
       variant="dark"
