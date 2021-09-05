@@ -48,7 +48,7 @@
 </template>
 <script>
 import axios from "axios";
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 export default {
   name: "Login",
   data() {
@@ -67,13 +67,24 @@ export default {
           .post("http://localhost:3000/api/auth/login", this.form)
           .then((res) => {
             if (res.status === 200) {
-              window.sessionStorage.setItem('token', JSON.stringify(res.data.token))
+              window.sessionStorage.setItem(
+                "token",
+                JSON.stringify(res.data.token)
+              );
               this.$store.dispatch("loadMovies");
+              this.$store.dispatch("logIn");
+              if (this.$router.currentRoute.path === "/") {
+                this.$router.push("/Books");
+              } else if (this.$router.currentRoute.path === "/Books") {
+                this.$router.push("/");
+              } else if (this.$router.currentRoute.path === "/Movies") {
+                this.$router.push("/");
+              }
               return console.log("Successful Login!");
             }
           })
           .catch((error) => {
-              return console.log("Something went wrong: " + error);
+            return console.log("Something went wrong: " + error);
           });
       } catch (error) {
         console.log(error);

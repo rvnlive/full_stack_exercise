@@ -1,18 +1,20 @@
 <template>
-  <div class="d-inline">
+  <div class="mb-3">
     <p class="display-4 text-center">Movies</p>
-    <div v-if="!isLoggedIn">
-      <p class="h5 text-center mt-4">
-        Please, login to see the list of movies.
-      </p>
-    </div>
-    <div v-else-if="isLoggedIn">
+    <div>
       <b-card
+        fluid
         v-for="(movie, index) in movieList"
         :key="movie._id"
         :title="index + 1 + ' ' + movie.name"
-        class="w-50 ml-auto mr-auto mb-2"
+        class="ml-auto mr-auto mb-2 rounded-0"
       >
+        <b-card-text>
+          Movie number:
+          <em
+            ><b>{{ index + 1 }}</b></em
+          >
+        </b-card-text>
       </b-card>
     </div>
   </div>
@@ -21,17 +23,17 @@
 import { mapGetters, mapState } from "vuex";
 export default {
   data() {
-      return {}
+    return {};
   },
   computed: {
     ...mapGetters(["getAllMovies"]),
-    ...mapState(['Status']),
+    ...mapState(["Status"]),
     movieList() {
       return this.getAllMovies.docs;
     },
-    isLoggedIn() {
-      return window.sessionStorage.getItem('token');
-    },
+    // isLoggedIn() {
+    //   return window.sessionStorage.getItem("token");
+    // },
   },
 };
 </script>
