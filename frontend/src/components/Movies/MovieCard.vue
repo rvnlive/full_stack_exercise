@@ -4,17 +4,50 @@
     <div>
       <b-card
         fluid
-        v-for="(movie, index) in movieList"
+        v-for="movie in movieList"
         :key="movie._id"
-        :title="index + 1 + ' ' + movie.name"
-        class="ml-auto mr-auto mb-2 rounded-0"
+        :title="movie.name"
+        class="ml-auto mr-auto mb-2 rounded-0 text-center"
       >
-        <b-card-text>
-          Movie number:
-          <em
-            ><b>{{ index + 1 }}</b></em
-          >
-        </b-card-text>
+        It has (<em>individually or as a series</em>):
+        <b-list-group class="mt-2 w-75 ml-auto mr-auto">
+          <b-list-group-item>
+            <em
+              ><b
+                >Academy Award Nominations:
+                {{ movie.academyAwardNominations }}</b
+              ></em
+            >
+          </b-list-group-item>
+          <b-list-group-item>
+            <em
+              ><b>Academy Award Wins: {{ movie.academyAwardWins }}</b></em
+            >
+          </b-list-group-item>
+          <b-list-group-item>
+            <em
+              ><b
+                >Box Office Revenue:
+                {{ movie.boxOfficeRevenueInMillions + " million USD" }}</b
+              ></em
+            >
+          </b-list-group-item>
+          <b-list-group-item>
+            <em
+              ><b>Budget: {{ movie.budgetInMillions + " million USD" }}</b></em
+            >
+          </b-list-group-item>
+          <b-list-group-item>
+            <em
+              ><b>Rotten Tomatoes Score: {{ movie.rottenTomatoesScore }}</b></em
+            >
+          </b-list-group-item>
+          <b-list-group-item>
+            <em
+              ><b>Runtime: {{ movie.runtimeInMinutes + " minutes" }}</b></em
+            >
+          </b-list-group-item>
+        </b-list-group>
       </b-card>
     </div>
   </div>
@@ -22,9 +55,6 @@
 <script>
 import { mapGetters, mapState } from "vuex";
 export default {
-  data() {
-    return {};
-  },
   computed: {
     ...mapGetters(["getAllMovies"]),
     ...mapState(["Status"]),

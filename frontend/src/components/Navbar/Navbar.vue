@@ -18,10 +18,7 @@ export default {
     Branding,
     LogIn,
     SignUp,
-    LogOut
-  },
-  data() {
-    return {};
+    LogOut,
   },
   computed: {
     isLoggedIn() {
