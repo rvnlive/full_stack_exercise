@@ -6,23 +6,31 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     Status: 'notIn',
+    User: [],
     Books: [],
-    Movies: []
+    Movies: [],
+    Favourites: []
   },
+  /// ///////////////////////////////////////
   mutations: {
-    logIn (state) {
+    logIn (state, id) {
       state.Status = 'In'
+      state.User = id
     },
     allBook (state, books) {
       state.Books = books
     },
     allMovie (state, movies) {
       state.Movies = movies
+    },
+    loadedFavourites (state, favourites) {
+      state.Favourites = favourites
     }
   },
+  /// ///////////////////////////////////////
   actions: {
-    logIn ({ commit }) {
-      commit('logIn')
+    logIn ({ commit }, id) {
+      commit('logIn', id)
     },
     loadBooks ({ commit }) {
       const baseURL = 'https://the-one-api.dev/v2'
@@ -51,10 +59,25 @@ export default new Vuex.Store({
           commit('allMovie', movies)
         })
         .catch(error => console.log(error))
+    },
+    loadFavourites ({ commit }) {
+      const baseURL = 'http://localhost:3000/api'
+      const favouritesAPI = '/favourites/'
+      const requestOptions = {
+        method: 'GET',
+        headers: { Authorization: 'Bearer ' + window.sessionStorage.getItem('token') }
+      }
+      window.fetch(baseURL + favouritesAPI, requestOptions)
+        .then(result => result.json())
+        .then(favourites => {
+          commit('loadedFavourites', favourites)
+        })
+        .catch(error => console.log(error))
     }
   },
   getters: {
     getStatus: state => state.Status,
+    getUser: state => state.User,
     getAllBooks: state => state.Books,
     getAllMovies: state => state.Movies
   }

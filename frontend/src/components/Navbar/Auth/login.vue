@@ -67,12 +67,13 @@ export default {
           .post("http://localhost:3000/api/auth/login", this.form)
           .then((res) => {
             if (res.status === 200) {
+              console.log(JSON.stringify(res.data))
               window.sessionStorage.setItem(
                 "token",
                 JSON.stringify(res.data.token)
               );
               this.$store.dispatch("loadMovies");
-              this.$store.dispatch("logIn");
+              this.$store.dispatch("logIn", JSON.stringify(res.data.userid));
               if (this.$router.currentRoute.path === "/") {
                 this.$router.push("/Books");
               } else if (this.$router.currentRoute.path === "/Books") {
