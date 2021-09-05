@@ -7,16 +7,16 @@
       class="pl-4 pr-4 rounded-lg"
       >Sign up</b-button
     >
-    <b-tooltip target="signup-tooltip-target" triggers="hover">
+    <b-tooltip target="signup-tooltip-target" variant="primary" triggers="hover">
       <b-form @submit.prevent="signUp" enctype="multipart/form-data">
         <b-form class="m-2">
           <b-form-group
             id="input-group-1"
             label="Username:"
-            label-for="username-input"
+            label-for="username-signup-input"
           >
             <b-form-input
-              id="username-input"
+              id="username-signup-input"
               type="text"
               v-model="form.userName"
               placeholder="Username"
@@ -26,10 +26,10 @@
           <b-form-group
             id="input-group-2"
             label="Password:"
-            label-for="password-input"
+            label-for="password-signup-input"
           >
             <b-form-input
-              id="password-input"
+              id="password-signup-input"
               v-model="form.password"
               type="password"
               placeholder="Password"

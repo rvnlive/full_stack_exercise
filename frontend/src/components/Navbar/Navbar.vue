@@ -2,8 +2,8 @@
   <div>
     <b-navbar variant="light" class="m-0 p-0 shadow-lg">
       <Branding />
-      <LogIn />
-      <SignUp />
+      <LogIn v-if="isLoggedIn === 'notIn'" />
+      <SignUp v-if="isLoggedIn === 'notIn'" />
     </b-navbar>
   </div>
 </template>
@@ -19,6 +19,11 @@ export default {
   },
   data() {
     return {};
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.state.Status;
+    },
   },
 };
 </script>

@@ -8,15 +8,15 @@
       >Login</b-button
     >
 
-    <b-tooltip target="login-tooltip-target" triggers="hover">
+    <b-tooltip target="login-tooltip-target" variant="primary" triggers="hover">
       <b-form @submit.prevent="onLogin" class="m-2">
         <b-form-group
           id="input-group-1"
           label="Username:"
-          label-for="username-input"
+          label-for="username-login-input"
         >
           <b-form-input
-            id="username-input"
+            id="username-login-input"
             v-model="form.userName"
             placeholder="Comrad"
             required
@@ -25,10 +25,10 @@
         <b-form-group
           id="input-group-2"
           label="Password:"
-          label-for="password-input"
+          label-for="password-login-input"
         >
           <b-form-input
-            id="password-input"
+            id="password-login-input"
             v-model="form.password"
             type="password"
             placeholder="Viv4L4V36as"
@@ -48,6 +48,7 @@
 </template>
 <script>
 import axios from "axios";
+import { mapActions } from 'vuex';
 export default {
   name: "Login",
   data() {
@@ -59,6 +60,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["loadMovies"]),
     onLogin() {
       try {
         axios
@@ -66,6 +68,7 @@ export default {
           .then((res) => {
             if (res.status === 200) {
               window.sessionStorage.setItem('token', JSON.stringify(res.data.token))
+              this.$store.dispatch("loadMovies");
               return console.log("Successful Login!");
             }
           })
