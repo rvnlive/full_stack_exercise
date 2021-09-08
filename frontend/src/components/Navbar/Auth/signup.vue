@@ -64,7 +64,7 @@ export default {
     onSignUp() {
       try {
         axios
-          .post("http://localhost:3000/api/auth/signup", this.form)
+          .post("https://boiling-savannah-16664.herokuapp.com/api/auth/signup", this.form)
           .then((res) => {
             if (res.status === 200) {
               return console.log("Successful Sign up!");
