@@ -96,24 +96,24 @@
               ><b>Runtime: {{ movie.runtimeInMinutes + " minutes" }}</b></em
             >
           </b-list-group-item>
-          <!-- <b-list-group-item v-if="!isAdded" @click="addToFavourites">
+          <b-list-group-item v-if="!isAdded" @click="addToFavourites()">
             <em><b>Add to favourites</b></em>
           </b-list-group-item>
           <b-list-group-item v-else-if="isAdded" @click="removeFromFavourites">
             <em><b>Remove from favourites</b></em>
-          </b-list-group-item> -->
+          </b-list-group-item>
         </b-list-group>
       </b-card>
     </div>
   </div>
 </template>
 <script>
-import { mapGetters, mapState } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 export default {
     data() {
     return {
-      // activeUserID: this.$store.getters.User.userid,
-      // movieID: this.getAllMovies.docs._id
+      activeUserID: this.$store.getters.getUser.id,
+      movieID: this.$store.state.Movies.docs[0]._id
     };
   },
   computed: {
@@ -125,14 +125,24 @@ export default {
     isLoggedIn() {
       return window.sessionStorage.getItem("token");
     },
-    // isAdded() {
-    //   return this.listAllFavourites.find(
-    //     (user) => user.userid === this.activeUserID
-    //   );
-    // },
+    isAdded() {
+      return this.$store.state.Favourites.find(
+        (user) => user.userid === this.activeUserID
+      );
+    },
   },
   methods: {
-    addToFavourites() {},
+    ...mapActions(["addToFavourites"]),
+    addToFavourites() {
+      const activeUserID = this.activeUserID
+      const movieID = this.movieID
+      this.$store
+        .dispatch("addToFavourites", { activeUserID, movieID })
+        .then(() => {
+          return console.log('Added to favourites!')
+        })
+        .catch((error) => console.log(error));
+    },
     removeFromFavourites() {},
   },
 };

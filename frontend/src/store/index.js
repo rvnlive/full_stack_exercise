@@ -29,8 +29,8 @@ export default new Vuex.Store({
   },
   /// ///////////////////////////////////////
   actions: {
-    logIn ({ commit }, id) {
-      commit('logIn', id)
+    logIn ({ commit }, { id, token }) {
+      commit('logIn', { id, token })
     },
     loadBooks ({ commit }) {
       const baseURL = 'https://the-one-api.dev/v2'
@@ -59,25 +59,67 @@ export default new Vuex.Store({
           commit('allMovie', movies)
         })
         .catch(error => console.log(error))
+    },
+    // commit, dispatch,
+    addToFavourites ({ dispatch, getters }, { activeUserID, movieID, bookID }) {
+      const baseURL = 'https://boiling-savannah-16664.herokuapp.com/'
+      const favouritesAPI = 'api/favourites/'
+      return new Promise((resolve, reject) => {
+        if (activeUserID && bookID) {
+          const bookToAdd = {
+            method: 'POST',
+            headers: {
+              ...getters.getToken,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ activeUserID, bookID })
+          }
+          window.fetch(baseURL + favouritesAPI, bookToAdd)
+            .then(response => {
+              dispatch('loadFavourites')
+              resolve(response)
+            })
+            .catch(error => {
+              reject(error)
+            })
+        } else if (activeUserID && movieID) {
+          const movieToAdd = {
+            method: 'POST',
+            headers: {
+              ...getters.getToken,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ activeUserID, movieID })
+          }
+          window.fetch(baseURL + favouritesAPI, movieToAdd)
+            .then(response => {
+              resolve(response)
+            })
+            .catch(error => {
+              reject(error)
+            })
+        }
+      })
+    },
+    loadFavourites ({ commit }) {
+      const baseURL = 'https://boiling-savannah-16664.herokuapp.com/'
+      const favouritesAPI = 'api/favourites/'
+      const requestOptions = {
+        method: 'GET',
+        headers: { Authorization: 'Bearer ' + window.sessionStorage.getItem('token') }
+      }
+      window.fetch(baseURL + favouritesAPI, requestOptions)
+        .then(result => result.json())
+        .then(favourites => {
+          commit('loadedFavourites', favourites)
+        })
+        .catch(error => console.log(error))
     }
-    // loadFavourites ({ commit }) {
-    //   const baseURL = 'http://localhost:3000/api'
-    //   const favouritesAPI = '/favourites/'
-    //   const requestOptions = {
-    //     method: 'GET',
-    //     headers: { Authorization: 'Bearer ' + window.sessionStorage.getItem('token') }
-    //   }
-    //   window.fetch(baseURL + favouritesAPI, requestOptions)
-    //     .then(result => result.json())
-    //     .then(favourites => {
-    //       commit('loadedFavourites', favourites)
-    //     })
-    //     .catch(error => console.log(error))
-    // }
   },
   getters: {
     getStatus: state => state.Status,
     getUser: state => state.User,
+    getToken: state => ({ Authorization: 'Bearer ' + state.User.token }),
     getAllBooks: state => state.Books,
     getAllMovies: state => state.Movies
   }

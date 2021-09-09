@@ -64,16 +64,22 @@ export default {
     onLogin() {
       try {
         axios
-          .post("https://boiling-savannah-16664.herokuapp.com/api/auth/login", this.form)
+          .post(
+            "https://boiling-savannah-16664.herokuapp.com/api/auth/login",
+            this.form
+          )
           .then((res) => {
             if (res.status === 200) {
-              console.log(JSON.stringify(res.data))
+              console.log(JSON.stringify(res.data));
               window.sessionStorage.setItem(
                 "token",
                 JSON.stringify(res.data.token)
               );
               this.$store.dispatch("loadMovies");
-              this.$store.dispatch("logIn", JSON.stringify(res.data.userid));
+              this.$store.dispatch("logIn", {
+                id: JSON.stringify(res.data.userid),
+                token: res.data.token,
+              });
               if (this.$router.currentRoute.path === "/") {
                 this.$router.push("/Books");
               } else if (this.$router.currentRoute.path === "/Books") {

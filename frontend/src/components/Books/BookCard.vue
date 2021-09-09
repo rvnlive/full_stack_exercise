@@ -1,12 +1,13 @@
 <template>
-  <div class="mb-4">
+  <div class="mb-3">
     <p class="display-4 text-center">Books</p>
     <b-card
       fluid
       v-for="(book, index) in bookList"
       :key="book._id"
       :title="book.name"
-      class="ml-auto mr-auto mb-2 rounded-0"
+      class="ml-auto mr-auto mb-2 rounded-xl"
+      style="max-width: 85vw"
     >
       <b-card-text>
         Book number:
