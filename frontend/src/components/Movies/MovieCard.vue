@@ -112,7 +112,7 @@ export default {
   data() {
     return {
       activeUserID: this.$store.getters.getUser.userID,
-      movieID: this.$store.state.Movies.docs[0]._id,
+      movieID: this.movieID = this.$store.state.Movies.docs[0]._id
     };
   },
   mounted() {

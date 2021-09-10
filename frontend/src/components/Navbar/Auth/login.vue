@@ -64,17 +64,16 @@ export default {
     onLogin() {
       try {
         axios
-          // .post(
-          //   "https://boiling-savannah-16664.herokuapp.com/api/auth/login",
-          //   this.form
-          // )
-                   .post(
-            "http://localhost:5432/api/auth/login",
+          .post(
+            "https://boiling-savannah-16664.herokuapp.com/api/auth/login",
             this.form
           )
+          //          .post(
+          //   "http://localhost:5432/api/auth/login",
+          //   this.form
+          // )
           .then((res) => {
             if (res.status === 200) {
-              console.log(JSON.stringify(res.data));
               window.sessionStorage.setItem(
                 "token",
                 JSON.stringify(res.data.token)
