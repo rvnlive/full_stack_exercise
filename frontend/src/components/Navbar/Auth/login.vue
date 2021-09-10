@@ -64,8 +64,12 @@ export default {
     onLogin() {
       try {
         axios
-          .post(
-            "https://boiling-savannah-16664.herokuapp.com/api/auth/login",
+          // .post(
+          //   "https://boiling-savannah-16664.herokuapp.com/api/auth/login",
+          //   this.form
+          // )
+                   .post(
+            "http://localhost:5432/api/auth/login",
             this.form
           )
           .then((res) => {
@@ -77,7 +81,7 @@ export default {
               );
               this.$store.dispatch("loadMovies");
               this.$store.dispatch("logIn", {
-                id: JSON.stringify(res.data.userid),
+                userID: JSON.stringify(res.data.user_id),
                 token: res.data.token,
               });
               if (this.$router.currentRoute.path === "/") {

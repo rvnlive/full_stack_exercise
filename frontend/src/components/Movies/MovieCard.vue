@@ -96,11 +96,12 @@
               ><b>Runtime: {{ movie.runtimeInMinutes + " minutes" }}</b></em
             >
           </b-list-group-item>
-          <b-list-group-item v-if="!isAdded" @click="addToFavourites()">
-            <em><b>Add to favourites</b></em>
-          </b-list-group-item>
-          <b-list-group-item v-else-if="isAdded" @click="removeFromFavourites">
-            <em><b>Remove from favourites</b></em>
+          <b-list-group-item>
+            <b-button>
+            <!-- <em
+              ><b>Runtime: {{ this.$store.getters.getFavourites }}</b></em
+            > -->
+            </b-button>
           </b-list-group-item>
         </b-list-group>
       </b-card>
@@ -108,42 +109,55 @@
   </div>
 </template>
 <script>
-import { mapActions, mapGetters, mapState } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
-    data() {
+  data() {
     return {
-      activeUserID: this.$store.getters.getUser.id,
-      movieID: this.$store.state.Movies.docs[0]._id
+      activeUserID: this.$store.getters.getUser.userID,
+      movieID: this.$store.state.Movies.docs[0]._id,
     };
   },
+  mounted() {
+    if (this.$store.getters.getUser.userID) {
+      const activeUserID = this.$store.getters.getUser.userID;
+      return this.$store.dispatch("loadFavourites", { activeUserID });
+    }
+  },
   computed: {
-    ...mapGetters(["getAllMovies"]),
-    ...mapState(["Status"]),
+    ...mapGetters(["getAllMovies", "getFavourites"]),
     movieList() {
       return this.getAllMovies.docs;
     },
     isLoggedIn() {
       return window.sessionStorage.getItem("token");
     },
-    isAdded() {
-      return this.$store.state.Favourites.find(
-        (user) => user.userid === this.activeUserID
-      );
+    favouritesList() {
+      const index = this.getFavourites.findIndex
+      return this.getFavourites[index];
     },
   },
   methods: {
-    ...mapActions(["addToFavourites"]),
+    ...mapActions(["addToFavourites", "removeFromFavourites"]),
     addToFavourites() {
-      const activeUserID = this.activeUserID
-      const movieID = this.movieID
+      const activeUserID = this.activeUserID;
+      const movieID = this.movieID;
       this.$store
         .dispatch("addToFavourites", { activeUserID, movieID })
         .then(() => {
-          return console.log('Added to favourites!')
+          return console.log("Added to favourites!");
         })
         .catch((error) => console.log(error));
     },
-    removeFromFavourites() {},
+    removeFromFavourites() {
+      const activeUserID = this.activeUserID;
+      const favouriteID = this.favouriteID;
+      this.$store
+        .dispatch("removeFromFavourites", { activeUserID, favouriteID })
+        .then(() => {
+          return console.log("Removed from favourites!");
+        })
+        .catch((error) => console.log(error));
+    },
   },
 };
 </script>

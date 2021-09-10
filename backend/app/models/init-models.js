@@ -15,11 +15,11 @@ function initModels (sequelize) {
   users.hasMany(favourites, { as: 'favourites', foreignKey: 'user_id' })
 
   // Association for BOOKS
-  books.belongsTo(favourites, { as: 'book', foreignKey: 'favourite_id' })
+  books.belongsTo(favourites, { as: 'books', foreignKey: 'favourite_id' })
   favourites.hasMany(books, { as: 'books', foreignKey: 'favourite_id' })
 
   // Association for MOVIES
-  movies.belongsTo(favourites, { as: 'movie', foreignKey: 'favourite_id' })
+  movies.belongsTo(favourites, { as: 'movies', foreignKey: 'favourite_id' })
   favourites.hasMany(movies, { as: 'movies', foreignKey: 'favourite_id' })
 
   return {
