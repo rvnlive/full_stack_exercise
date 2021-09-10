@@ -1,10 +1,10 @@
 <template>
   <div>
     <b-list-group-item>
-      <b-button>Add to favourites</b-button>
+      <b-button @click="addToFavourites()">Add to favourites</b-button>
     </b-list-group-item>
-    <b-list-group-item>
-      <b-button>Remove from favourites</b-button>
+    <b-list-group-item >
+      <b-button @click="removeFromFavourites()">Remove from favourites</b-button>
     </b-list-group-item>
   </div>
 </template>
@@ -14,19 +14,14 @@ export default {
   data() {
     return {
       activeUserID: this.$store.getters.getUser.userID,
-      movieID: this.$store.state.Movies.docs[0]._id,
+      movieID: this.$store.state.Movies.docs[0]._id
     };
   },
   computed: {
-    ...mapGetters(["getFavouriteMovies"]),
+    ...mapGetters(["getFavouriteMovies", "getUser"]),
     favouriteMovies() {
-      const favourites = this.getFavouriteMovies.entries();
-      let favs = favourites.next().value;
-      return favs[1], console.log(favs[1]);
+      return this.getFavouriteMovies;
     },
-    // favouriteMovies() {
-    //   return this.getFavouriteMovies;
-    // },
   },
   methods: {
     ...mapActions(["addToFavourites", "removeFromFavourites"]),
@@ -40,16 +35,16 @@ export default {
         })
         .catch((error) => console.log(error));
     },
-    removeFromFavourites() {
-      const activeUserID = this.activeUserID;
-      const favouriteID = this.favouriteID;
-      this.$store
-        .dispatch("removeFromFavourites", { activeUserID, favouriteID })
-        .then(() => {
-          return console.log("Removed from favourites!");
-        })
-        .catch((error) => console.log(error));
-    },
+    // removeFromFavourites() {
+    //   const activeUserID = this.activeUserID;
+    //   const favouriteID = this.favouriteID;
+    //   this.$store
+    //     .dispatch("removeFromFavourites", { activeUserID, favouriteID })
+    //     .then(() => {
+    //       return console.log("Removed from favourites!");
+    //     })
+    //     .catch((error) => console.log(error));
+    // },
   },
 };
 </script>
