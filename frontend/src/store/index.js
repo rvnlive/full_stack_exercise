@@ -9,7 +9,8 @@ export default new Vuex.Store({
     User: [],
     Books: [],
     Movies: [],
-    Favourites: []
+    FavouriteBooks: [],
+    FavouriteMovies: []
   },
   /// ///////////////////////////////////////
   mutations: {
@@ -23,8 +24,11 @@ export default new Vuex.Store({
     allMovie (state, movies) {
       state.Movies = movies
     },
-    loadedFavourites (state, favourites) {
-      state.Favourites = favourites
+    loadedFavouriteBooks (state, favourites) {
+      state.FavouriteBooks = favourites
+    },
+    loadedFavouriteMovies (state, favourites) {
+      state.FavouriteMovies = favourites
     }
   },
   /// ///////////////////////////////////////
@@ -76,7 +80,7 @@ export default new Vuex.Store({
           }
           window.fetch(baseURL + favouritesAPI, bookToAdd)
             .then(response => {
-              dispatch('loadFavourites')
+              dispatch('loadFavouriteBooks')
               resolve(response)
             })
             .catch(error => {
@@ -93,7 +97,7 @@ export default new Vuex.Store({
           }
           window.fetch(baseURL + favouritesAPI, movieToAdd)
             .then(response => {
-              dispatch('loadFavourites')
+              dispatch('loadFavouriteMovies')
               resolve(response)
             })
             .catch(error => {
@@ -102,10 +106,10 @@ export default new Vuex.Store({
         }
       })
     },
-    loadFavourites ({ commit, getters }, activeUserID) {
+    loadFavouriteBooks ({ commit, getters }, activeUserID) {
       // const baseURL = 'https://boiling-savannah-16664.herokuapp.com/'
       const baseURL = 'http://localhost:5432/'
-      const favouritesAPI = 'api/favourites/'
+      const favouritesAPI = 'api/favourites/books'
       const requestOptions = {
         method: 'POST',
         headers: {
@@ -117,7 +121,27 @@ export default new Vuex.Store({
       window.fetch(baseURL + favouritesAPI, requestOptions)
         .then(result => result.json())
         .then(favourites => {
-          commit('loadedFavourites', favourites)
+          commit('loadedFavouriteBooks', favourites)
+        })
+        .catch(error => console.log(error))
+    },
+    loadFavouriteMovies ({ commit, getters }, activeUserID) {
+      // const baseURL = 'https://boiling-savannah-16664.herokuapp.com/'
+      const baseURL = 'http://localhost:5432/'
+      const favouritesAPI = 'api/favourites/movies'
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+          ...getters.getToken,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(activeUserID)
+      }
+      window.fetch(baseURL + favouritesAPI, requestOptions)
+        .then(result => result.json())
+        .then(favourites => {
+          commit('loadedFavouriteMovies', favourites)
+          return favourites
         })
         .catch(error => console.log(error))
     },
@@ -153,6 +177,7 @@ export default new Vuex.Store({
     getToken: state => ({ Authorization: 'Bearer ' + state.User.token }),
     getAllBooks: state => state.Books,
     getAllMovies: state => state.Movies,
-    getFavourites: state => state.Favourites
+    getFavouriteBooks: state => state.FavouriteBooks,
+    getFavouriteMovies: state => state.FavouriteMovies
   }
 })
