@@ -100,14 +100,13 @@
           <b-list-group-item>
             <b-button
               @click="addToFavourites((movieID = movie._id))"
-              v-if="!isAdded((movieID = movie._id))"
               >Add to favourites
             </b-button>
-            <b-button
+            <!-- <b-button
               @click="removeFromFavourites(movie._id)"
               v-else-if="isAdded((movieID = movie._id))"
               >Remove from favourites
-            </b-button>
+            </b-button> -->
           </b-list-group-item>
         </b-list-group>
       </b-card>
@@ -126,7 +125,6 @@ export default {
     if (this.$store.getters.getUser.userID) {
       const activeUserID = this.$store.getters.getUser.userID;
       return this.$store.dispatch("loadFavouriteMovies", { activeUserID });
-      // console.log(this.favouriteMovies)
     }
   },
   computed: {
@@ -143,40 +141,29 @@ export default {
     // addedToFavourites: function () {
     //   const favourites = this.getFavouriteMovies;
     //   let addedMovies = function () {
-    //     for (let favourite of favourites) {
-    //       favourite.movies[0].movie_id;
-    //       console.log(favourite.movies[0].movie_id);
+    //     for (let i = 0; i < favourites.length; i++) {
+    //       for (let j = 0; j < favourites[i].movies.length; j++) {
+    //         let newArray = new Array();
+    //         newArray[j] = {
+    //           movieID: favourites[i].movies[j].movie_id
+    //         };
+    //         // console.log(newArray);
+    //       }
     //     }
     //   };
     //   return addedMovies();
     // },
-    addedToFavourites: function () {
-      const favourites = this.getFavouriteMovies;
-      let addedMovies = function () {
-        for (let i = 0; i < favourites.length; i++) {
-          for (let j = 0; j < favourites[i].movies.length; j++) {
-            let newArray = new Array();
-            newArray[j] = {
-              movieID: favourites[i].movies[j].movie_id
-            };
-            // console.log(newArray);
-          }
-        }
-      };
-      return addedMovies();
-    },
   },
   methods: {
     ...mapActions(["addToFavourites", "removeFromFavourites"]),
 
-    isAdded() {
-
+    // isAdded() {
         // if (IDs.movieID === document.getElementsByTagName("key").id) {
         //   return true;
         // } else {
         //   return false;
         // }
-    },
+    // },
 
     addToFavourites(movieID) {
       const activeUserID = this.activeUserID;
