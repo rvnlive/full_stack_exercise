@@ -56,13 +56,14 @@ The database structure has 1 table for `users`, 1 junction table for `favourites
 
   ```
   // Postgres DB Connection
-  USER= // Your postgres Username // e.g. postgres
-  PASSWORD= // Your postgres Password // e.g. postgres
-  HOST= // Your host // e.g. localhost
-  DATABASE= // Your database name // e.g. synthetix
+  USER= // Your postgres Username // e.g. fyfyunkmjdavrd
+  PASSWORD= // Your postgres Password // e.g. 033374cd1ca0e0cbcd7f4203888487b311391eb0361d401ee57b9d70d4515acd
+  HOST= // Your host // e.g. ec2-44-196-8-220.compute-1.amazonaws.com
+  DATABASE= // Your database name // e.g. d6rt4ec5napukl
   SCHEMA= // Your Database Schema name // e.g. public
-  PORT= // Your backend port! -> e.g. 3000
-
+  PORT= // Your backend port! -> e.g. 5432
+  
+  DATABASE_URL=postgres://fyfyunkmjdavrd:033374cd1ca0e0cbcd7f4203888487b311391eb0361d401ee57b9d70d4515acd@ec2-44-196-8-220.compute-1.amazonaws.com:5432/d6rt4ec5napukl
   // JWT Secret Key
   SECRET= // Your secret key // e.g. he#59k4p!276ct
   ```
@@ -75,7 +76,7 @@ The database structure has 1 table for `users`, 1 junction table for `favourites
   > Then on **successful connection** (_to the database and server_), you must see the following in your **backend terminal tab**:
 
   ```
-  Listening on port 3000
+  Listening on port 5432
   Executing (default): SELECT 1+1 AS result
   Database connection Live!
   ```
