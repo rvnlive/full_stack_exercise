@@ -65,8 +65,8 @@ export default new Vuex.Store({
         .catch(error => console.log(error))
     },
     addToFavourites ({ getters, dispatch }, { activeUserID, movieID, bookID }) {
-      const baseURL = 'https://boiling-savannah-16664.herokuapp.com/'
-      // const baseURL = 'http://localhost:5432/'
+      // const baseURL = 'https://boiling-savannah-16664.herokuapp.com/'
+      const baseURL = 'http://localhost:5432/'
       const favouritesAPI = 'api/favourites/add'
       return new Promise((resolve, reject) => {
         if (activeUserID && bookID) {
@@ -107,8 +107,8 @@ export default new Vuex.Store({
       })
     },
     loadFavouriteBooks ({ commit, getters }, activeUserID) {
-      const baseURL = 'https://boiling-savannah-16664.herokuapp.com/'
-      // const baseURL = 'http://localhost:5432/'
+      // const baseURL = 'https://boiling-savannah-16664.herokuapp.com/'
+      const baseURL = 'http://localhost:5432/'
       const favouritesAPI = 'api/favourites/books'
       const requestOptions = {
         method: 'POST',
@@ -126,8 +126,8 @@ export default new Vuex.Store({
         .catch(error => console.log(error))
     },
     loadFavouriteMovies ({ commit, getters }, activeUserID) {
-      const baseURL = 'https://boiling-savannah-16664.herokuapp.com/'
-      // const baseURL = 'http://localhost:5432/'
+      // const baseURL = 'https://boiling-savannah-16664.herokuapp.com/'
+      const baseURL = 'http://localhost:5432/'
       const favouritesAPI = 'api/favourites/movies'
       const requestOptions = {
         method: 'POST',
@@ -146,8 +146,8 @@ export default new Vuex.Store({
         .catch(error => console.log(error))
     },
     removeFromFavourites ({ getters, dispatch }, { activeUserID, favouriteID }) {
-      const baseURL = 'https://boiling-savannah-16664.herokuapp.com/'
-      // const baseURL = 'http://localhost:5432/'
+      // const baseURL = 'https://boiling-savannah-16664.herokuapp.com/'
+      const baseURL = 'http://localhost:5432/'
       const favouritesAPI = 'api/favourites/remove'
       return new Promise((resolve, reject) => {
         if (activeUserID && favouriteID) {
